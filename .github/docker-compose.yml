@@ -1,18 +1,14 @@
-FROM python:3.11-slim
-WORKDIR /app
-
-# Install the package directly with pip
-RUN pip install --no-cache-dir mcp-server-qdrant
-
-# Expose the default port for SSE transport
-EXPOSE 8000
-
-# Set environment variables
-ENV QDRANT_URL=":memory:"
-ENV QDRANT_API_KEY=""
-ENV COLLECTION_NAME="test-collection"
-ENV EMBEDDING_MODEL="sentence-transformers/all-MiniLM-L6-v2"
-ENV FASTMCP_PORT=8000
-ENV FASTMCP_HOST=0.0.0.0
-
-# PAS DE CMD - laisse le défaut du package
+version: '3.8'
+services:
+  mcp-server:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - QDRANT_URL=https://da81eb76-de7e-4890-9577-a40d530278d9.eu-central-1-0.aws.cloud.qdrant.io
+      - QDRANT_API_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJtIn0.-gp8rlfwz6WUCWWG_pp6bnCsYwKc1wZA0kSDdb8seko
+      - COLLECTION_NAME=mcp-collection
+      - FASTMCP_PORT=8000
+      - FASTMCP_HOST=0.0.0.0
+    command: ["uv", "run", "mcp-server-qdrant", "--transport", "sse"]
+    restart: unless-stopped
