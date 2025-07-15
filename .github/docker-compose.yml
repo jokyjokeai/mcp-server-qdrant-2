@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  mcp-server:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - QDRANT_URL=:memory:  # Pour tester sans Qdrant externe
+      - COLLECTION_NAME=test-collection
+      - FASTMCP_PORT=8000
+      - FASTMCP_HOST=0.0.0.0
+    command: ["--transport", "sse"]  # Important pour n8n !
+    restart: unless-stopped
