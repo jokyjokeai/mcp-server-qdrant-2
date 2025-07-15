@@ -1,17 +1,18 @@
 FROM python:3.11-slim
 WORKDIR /app
 
-# Install dependencies
+# Install the package directly with pip
 RUN pip install --no-cache-dir mcp-server-qdrant
 
-# Expose port
+# Expose the default port for SSE transport
 EXPOSE 8000
 
 # Set environment variables
 ENV QDRANT_URL=":memory:"
+ENV QDRANT_API_KEY=""
 ENV COLLECTION_NAME="test-collection"
+ENV EMBEDDING_MODEL="sentence-transformers/all-MiniLM-L6-v2"
 ENV FASTMCP_PORT=8000
 ENV FASTMCP_HOST=0.0.0.0
 
-# Start command
-CMD ["python", "-m", "mcp_server_qdrant", "--transport", "sse"]
+# PAS DE CMD - laisse le défaut du package
