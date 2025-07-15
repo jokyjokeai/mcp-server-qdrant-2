@@ -1,13 +1,17 @@
-version: '3.8'
-services:
-  mcp-server:
-    build: .
-    ports:
-      - "8000:8000"
-    environment:
-      - QDRANT_URL=:memory:
-      - COLLECTION_NAME=test-collection
-      - FASTMCP_PORT=8000
-      - FASTMCP_HOST=0.0.0.0
-    command: ["python", "-m", "mcp_server_qdrant", "--transport", "sse"]
-    restart: unless-stopped
+FROM python:3.11-slim
+WORKDIR /app
+
+# Install dependencies
+RUN pip install --no-cache-dir mcp-server-qdrant
+
+# Expose port
+EXPOSE 8000
+
+# Set environment variables
+ENV QDRANT_URL=":memory:"
+ENV COLLECTION_NAME="test-collection"
+ENV FASTMCP_PORT=8000
+ENV FASTMCP_HOST=0.0.0.0
+
+# Start command
+CMD ["python", "-m", "mcp_server_qdrant", "--transport", "sse"]
