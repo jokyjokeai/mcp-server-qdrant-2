@@ -5,9 +5,9 @@ services:
     ports:
       - "8000:8000"
     environment:
-      - QDRANT_URL=:memory:  # Pour tester sans Qdrant externe
+      - QDRANT_URL=:memory:
       - COLLECTION_NAME=test-collection
       - FASTMCP_PORT=8000
       - FASTMCP_HOST=0.0.0.0
-    command: ["--transport", "sse"]  # Important pour n8n !
+    command: ["python", "-m", "mcp_server_qdrant", "--transport", "sse"]
     restart: unless-stopped
