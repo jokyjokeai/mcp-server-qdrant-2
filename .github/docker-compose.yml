@@ -9,5 +9,5 @@ services:
       - COLLECTION_NAME=test-collection
       - FASTMCP_PORT=8000
       - FASTMCP_HOST=0.0.0.0
-    command: ["python", "-m", "mcp_server_qdrant", "--transport", "sse"]
+    command: ["uvx", "mcp-server-qdrant", "--transport", "sse"]
     restart: unless-stopped
