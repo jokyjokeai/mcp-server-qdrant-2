@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  mcp-server:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - QDRANT_URL=:memory:
+      - COLLECTION_NAME=test-collection
+      - FASTMCP_PORT=8000
+      - FASTMCP_HOST=0.0.0.0
+    command: ["python", "-m", "mcp_server_qdrant", "--transport", "sse"]
+    restart: unless-stopped
