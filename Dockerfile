@@ -16,5 +16,4 @@ ENV QDRANT_API_KEY=""
 ENV COLLECTION_NAME="default-collection"
 ENV EMBEDDING_MODEL="sentence-transformers/all-MiniLM-L6-v2"
 
-# Run the server with SSE transport - FORMAT JSON
-CMD ["uvx", "mcp-server-qdrant", "--transport", "sse"]
+# PAS DE CMD ICI !
